@@ -160,7 +160,38 @@ var agecatCenters = { // Center locations of the bubbles.
     'mehr als 5h': 900
   };
     
+// Fünfter Button: Sorgenbarometer
+    
+  var concernCenters = { // Center locations of the bubbles. 
+    '1': { x: 220, y: height / 2 },
+    '2': { x: 420, y: height / 2 },
+    '3': { x: 630, y: height / 2 },
+    '4': { x: 770, y: height / 2 } 
+  };
 
+  var concernTitleX = {  // X locations of the year titles.
+    'Stimmt ganz': 40,
+    'Stimmt eher': 360,
+    'Stimmt eher nicht': 700,
+    'Stimmt nicht': 900
+  };
+    
+// Sechster Button: Geld eine Woche
+    
+  var moneyCenters = { // Center locations of the bubbles. 
+    '0': { x: 220, y: height / 2 },
+    '1': { x: 420, y: height / 2 },
+    '2': { x: 630, y: height / 2 },
+    '3': { x: 770, y: height / 2 } 
+  };
+
+  var moneyTitleX = {  // X locations of the year titles.
+    'Würde ich auch gratis machen': 100,
+    'Entschädigung zwischen 0 und 50 CHF': 360,
+    'Entschädigung zwischen 50 und 100 CHF': 640,
+    'Über 100 CHF': 900
+  };
+    
        
     
 //* ------------------------------------------------------------------
@@ -228,7 +259,11 @@ var agecatCenters = { // Center locations of the bubbles.
           
         sex: d.geschlecht,
           
-       
+        concern: d.sorgenkat,
+        concerntext: d.sorgen,
+          
+        money: d.geldeinewochekat,
+        moneytext: d.geldeinewoche,
         
         x: Math.random() * 900,
         y: Math.random() * 800
@@ -325,6 +360,8 @@ var agecatCenters = { // Center locations of the bubbles.
     hideAgecat();
     hideSex();
     hideScreentime();
+    hideConcern();
+    hideMoney();
 
     
     force.on('tick', function (e) {
@@ -367,6 +404,9 @@ Die Positionierung basiert auf dem alpha Parameter des force layouts und wird kl
     hideAgecat();
     hideSex();
     hideScreentime();
+    hideConcern();
+    hideMoney();
+
 
 
     force.on('tick', function (e) {
@@ -415,6 +455,9 @@ function moveToYear(alpha) {
     hideYear();
     hideSex();
     hideScreentime();
+    hideConcern();
+    hideMoney();
+
 
 
     force.on('tick', function (e) {
@@ -463,6 +506,8 @@ function moveToAgecat(alpha) {
     hideYear();
     hideAgecat();
     hideScreentime();
+    hideMoney();
+
 
 
     force.on('tick', function (e) {
@@ -511,6 +556,9 @@ function moveToAgecat(alpha) {
     hideYear();
     hideSex();
     hideAgecat();
+    hideConcern();
+    hideMoney();
+
 
 
     force.on('tick', function (e) {
@@ -548,9 +596,108 @@ function moveToAgecat(alpha) {
       .text(function (d) { return d; });
     }    
 
-  
+ //* ------------------------------------------------------------------
+//
+// CONCERN / SORGEN
+//
+// -----------------------------------------------------------------*/
     
+  function splitBubblesintoConcern() {
+    showConcern();
+    hideYear();
+    hideSex();
+    hideAgecat();
+    hideScreentime();
+    hideMoney();
+
+
+
+    force.on('tick', function (e) {
+      bubbles.each(moveToConcern(e.alpha))
+        .attr('cx', function (d) { return d.x; })
+        .attr('cy', function (d) { return d.y; });
+    });
+
+    force.start();
+  }
+
+  function moveToConcern(alpha) {
+    return function (d) {
+      var target = concernCenters[d.concern];
+      d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
+      d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
+    };
+  }
+
+  function hideConcern() {
+    svg.selectAll('.concern').remove();
+  }
+
+  function showConcern() {
+
+    var concernData = d3.keys(concernTitleX);
+    var concern = svg.selectAll('.concern')
+      .data(concernData);
+
+    concern.enter().append('text')
+      .attr('class', 'concern')
+      .attr('x', function (d) { return concernTitleX[d]; })
+      .attr('y', 65)
+      .attr('text-anchor', 'middle')
+      .text(function (d) { return d; });
+    }    
+   
+     //* ------------------------------------------------------------------
+//
+// MONEY / GELD EINE WOCHE
+//
+// -----------------------------------------------------------------*/
     
+  function splitBubblesintoMoney() {
+    showMoney();
+    hideYear();
+    hideSex();
+    hideAgecat();
+    hideScreentime();
+    hideConcern();
+
+
+
+    force.on('tick', function (e) {
+      bubbles.each(moveToMoney(e.alpha))
+        .attr('cx', function (d) { return d.x; })
+        .attr('cy', function (d) { return d.y; });
+    });
+
+    force.start();
+  }
+
+  function moveToMoney(alpha) {
+    return function (d) {
+      var target = moneyCenters[d.money];
+      d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
+      d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
+    };
+  }
+
+  function hideMoney() {
+    svg.selectAll('.money').remove();
+  }
+
+  function showMoney() {
+
+    var moneyData = d3.keys(moneyTitleX); 
+    var money = svg.selectAll('.money')
+      .data(moneyData);
+
+    money.enter().append('text')
+      .attr('class', 'money')
+      .attr('x', function (d) { return moneyTitleX[d]; })
+      .attr('y', 65)
+      .attr('text-anchor', 'middle')
+      .text(function (d) { return d; });
+    }    
+   
 //* ------------------------------------------------------------------
 //
 // WISSENSCHAFTSWOCHE F
@@ -576,6 +723,10 @@ function moveToAgecat(alpha) {
       splitBubblesintoSex();
     } else if (displayName === 'screentime') {
       splitBubblesintoScreentime();
+    } else if (displayName === 'concern') {
+      splitBubblesintoConcern();
+    } else if (displayName === 'money') {
+      splitBubblesintoMoney();
     } else {
       groupBubbles();
     }
@@ -622,8 +773,15 @@ function moveToAgecat(alpha) {
                   '<span class="name">Bildschirmzeit: </span><span class="value">' +
                   d.screentime +
                   '</span><br/>' +
-                  '<span class="name">"Umfragejahr": </span><span class="value">' +
+                  '<span class="name">Umfragejahr: </span><span class="value">' +
                   d.year +
+                  '</span><br/>' +
+                  '<span class="name">"Ich mache mir Sorgen um meine Daten": </span><span class="value">' +
+                  d.concerntext +
+                  '</span><br/>' +
+                  '<span class="name">"Für wie viel Geld würde ich für eine Woche aufs Handy verzichten?": </span><span class="value">' +
+                  d.moneytext +
+        
                   '</span>';
     tooltip2.showtooltip2(content, d3.event);
   }
