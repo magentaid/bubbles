@@ -179,7 +179,7 @@ var agecatCenters = { // Center locations of the bubbles.
 // Sechster Button: Geld eine Woche
     
   var moneyCenters = { // Center locations of the bubbles. 
-    '0': { x: 220, y: height / 2 },
+    '0': { x: 230, y: height / 2 },
     '1': { x: 420, y: height / 2 },
     '2': { x: 630, y: height / 2 },
     '3': { x: 770, y: height / 2 } 
@@ -187,8 +187,8 @@ var agecatCenters = { // Center locations of the bubbles.
 
   var moneyTitleX = {  // X locations of the year titles.
     'Würde ich auch gratis machen': 100,
-    'Entschädigung zwischen 0 und 50 CHF': 360,
-    'Entschädigung zwischen 50 und 100 CHF': 640,
+    'Entschädigungsgeld zwischen 0 und 49 CHF': 360,
+    'Entschädigungsgeld zwischen 50 und 100 CHF': 640,
     'Über 100 CHF': 900
   };
     
@@ -757,7 +757,7 @@ function moveToAgecat(alpha) {
 
   var fillColor = d3.scale.ordinal()
     .domain(['1','2','3', '4','5','6'])
-    .range(['#F7CAD0', '#ff006e', '#48CAE4', '#0096C7','#023E8A','#03045E']);
+    .range(['#FDECFB', '#F9B4ED', '#E574BC', '#C52184','#98AEA2','#1E2D24']);
 
   /* Tooltip-Funktion*/
   function showDetail(d) {
