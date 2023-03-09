@@ -186,10 +186,19 @@ var agecatCenters = { // Center locations of the bubbles.
   };
 
   var moneyTitleX = {  // X locations of the year titles.
-    'Würde ich auch gratis machen': 100,
-    'Entschädigungsgeld zwischen 0 und 49 CHF': 360,
-    'Entschädigungsgeld zwischen 50 und 100 CHF': 640,
+    'Wie viel Entschädigungsgeld brauchen Muristalder*Innen für eine Woche ohne Handy?': 500,
+    'Kein Geld': 100,
+    '1-49 CHF': 360,
+    '50-100 CHF': 640,
     'Über 100 CHF': 900
+  };
+    
+  var moneyTitleY = {  // Y locations of the year titles.
+    'Wie viel Entschädigungsgeld brauchen Muristalder*Innen für eine Woche ohne Handy?': 35,
+    'Kein Geld': 65,
+    '1-49 CHF': 65,
+    '50-100 CHF': 65,
+    'Über 100 CHF': 65
   };
     
        
@@ -490,7 +499,7 @@ function moveToAgecat(alpha) {
     agecat.enter().append('text')
       .attr('class', 'agecat')
       .attr('x', function (d) { return agecatTitleX[d]; })
-      .attr('y', 65)
+      .attr('y', function (d) { return agecatTitleY[d]; })
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
     }
@@ -693,7 +702,7 @@ function moveToAgecat(alpha) {
     money.enter().append('text')
       .attr('class', 'money')
       .attr('x', function (d) { return moneyTitleX[d]; })
-      .attr('y', 65)
+      .attr('y', function (d) { return moneyTitleY[d]; })
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
     }    
@@ -757,7 +766,7 @@ function moveToAgecat(alpha) {
 
   var fillColor = d3.scale.ordinal()
     .domain(['1','2','3', '4','5','6'])
-    .range(['#FDECFB', '#F9B4ED', '#E574BC', '#C52184','#98AEA2','#1E2D24']);
+    .range(['#FDECFB', '#FDECFB', '#E574BC', '#C52184','#98AEA2','#1E2D24']);
 
   /* Tooltip-Funktion*/
   function showDetail(d) {
