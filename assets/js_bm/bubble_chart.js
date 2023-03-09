@@ -499,7 +499,7 @@ function moveToAgecat(alpha) {
     agecat.enter().append('text')
       .attr('class', 'agecat')
       .attr('x', function (d) { return agecatTitleX[d]; })
-      .attr('y', function (d) { return agecatTitleY[d]; })
+      .attr('y', 65)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
     }
