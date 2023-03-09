@@ -186,7 +186,7 @@ var agecatCenters = { // Center locations of the bubbles.
   };
 
   var moneyTitleX = {  // X locations of the year titles.
-    'Wie viel Entschädigungsgeld brauchen Muristalder*Innen für eine Woche ohne Handy?': 500,
+    'Wie viel Entschädigungsgeld brauchen Muristaldner*Innen für eine Woche ohne Handy?': 500,
     'Kein Geld': 100,
     '1-49 CHF': 360,
     '50-100 CHF': 640,
@@ -194,7 +194,7 @@ var agecatCenters = { // Center locations of the bubbles.
   };
     
   var moneyTitleY = {  // Y locations of the year titles.
-    'Wie viel Entschädigungsgeld brauchen Muristalder*Innen für eine Woche ohne Handy?': 35,
+    'Wie viel Entschädigungsgeld brauchen Muristaldner*Innen für eine Woche ohne Handy?': 35,
     'Kein Geld': 65,
     '1-49 CHF': 65,
     '50-100 CHF': 65,
